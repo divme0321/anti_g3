@@ -1,13 +1,14 @@
-import { useStore } from './store/useStore';
+import { useStore, PRESETS } from './store/useStore';
 import { 
   Box, 
   Map, 
   Play, 
-  Monitor,
+  Monitor, 
   TrendingUp,
   ArrowUpRight,
   ShieldCheck,
-  Move
+  Move,
+  Layers
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Scene from './components/Scene';
@@ -58,8 +59,27 @@ const Sidebar = () => {
 
       <div className="card glass">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+          <Layers size={18} color="var(--primary)" />
+          <h3 className="font-heading">家具のプリセット</h3>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          {Object.entries(PRESETS).map(([key, item]) => (
+            <button 
+              key={key}
+              className={furniture.name === item.name ? 'btn-primary' : 'btn-secondary'}
+              style={{ padding: '8px', fontSize: '11px' }}
+              onClick={() => updateFurniture({ ...item })}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="card glass">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
           <Box size={18} color="var(--primary)" />
-          <h3 className="font-heading">家具の寸法 (m)</h3>
+          <h3 className="font-heading">独自の寸法 (m)</h3>
         </div>
         
         <div className="input-group">
@@ -67,7 +87,7 @@ const Sidebar = () => {
           <input 
             type="number" step="0.1" 
             value={furniture.width} 
-            onChange={(e) => updateFurniture({ width: parseFloat(e.target.value) })} 
+            onChange={(e) => updateFurniture({ width: parseFloat(e.target.value), name: 'カスタム' })} 
           />
         </div>
         
@@ -76,7 +96,7 @@ const Sidebar = () => {
           <input 
             type="number" step="0.1" 
             value={furniture.height} 
-            onChange={(e) => updateFurniture({ height: parseFloat(e.target.value) })} 
+            onChange={(e) => updateFurniture({ height: parseFloat(e.target.value), name: 'カスタム' })} 
           />
         </div>
         
@@ -85,7 +105,7 @@ const Sidebar = () => {
           <input 
             type="number" step="0.1" 
             value={furniture.depth} 
-            onChange={(e) => updateFurniture({ depth: parseFloat(e.target.value) })} 
+            onChange={(e) => updateFurniture({ depth: parseFloat(e.target.value), name: 'カスタム' })} 
           />
         </div>
       </div>

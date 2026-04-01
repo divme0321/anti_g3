@@ -7,6 +7,7 @@ export interface Point {
 }
 
 export interface Furniture {
+  name: string;
   width: number;
   height: number;
   depth: number;
@@ -14,6 +15,14 @@ export interface Furniture {
   rotation: [number, number, number];
   color: string;
 }
+
+export const PRESETS: Record<string, Partial<Furniture>> = {
+  'custom': { name: 'カスタム' },
+  'bed': { name: 'シングルベッド', width: 1.0, height: 0.45, depth: 2.0, color: '#3b82f6' },
+  'refrigerator': { name: '冷蔵庫', width: 0.6, height: 1.8, depth: 0.7, color: '#94a3b8' },
+  'sofa': { name: '3人掛けソファ', width: 2.1, height: 0.8, depth: 0.9, color: '#f59e0b' },
+  'washing-machine': { name: 'ドラム式洗濯機', width: 0.6, height: 1.0, depth: 0.7, color: '#10b981' },
+};
 
 interface AppState {
   // Mode: EDIT (drawing layout) or SIMULATE (moving furniture)
@@ -59,6 +68,7 @@ export const useStore = create<AppState>((set) => ({
   clearPoints: () => set({ points: [] }),
 
   furniture: {
+    name: 'カスタム',
     width: 2.0,
     height: 1.8,
     depth: 0.8,
