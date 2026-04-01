@@ -35,6 +35,7 @@ interface AppState {
   removePoint: (id: string) => void;
   updatePoint: (id: string, x: number, y: number) => void;
   clearPoints: () => void;
+  loadSample: (type: 'CORRIDOR' | 'ENTRANCE') => void;
 
   // Furniture state
   furniture: Furniture;
@@ -54,7 +55,7 @@ export const useStore = create<AppState>((set) => ({
     { x: 5, y: -5, id: '2' },
     { x: 5, y: 5, id: '3' },
     { x: -5, y: 5, id: '4' },
-    { x: -5, y: -5, id: '5' }, // Close loop for default
+    { x: -5, y: -5, id: '5' },
   ],
   addPoint: (x, y) => set((state) => ({ 
     points: [...state.points, { x, y, id: Math.random().toString(36).substr(2, 9) }] 
@@ -66,6 +67,29 @@ export const useStore = create<AppState>((set) => ({
     points: state.points.map((p) => p.id === id ? { ...p, x, y } : p)
   })),
   clearPoints: () => set({ points: [] }),
+  loadSample: (type) => {
+    let newPoints: Point[] = [];
+    if (type === 'CORRIDOR') {
+      newPoints = [
+        { x: -8, y: -2, id: 'c1' },
+        { x: 2, y: -2, id: 'c2' },
+        { x: 2, y: 6, id: 'c3' },
+        { x: 4, y: 6, id: 'c4' },
+        { x: 4, y: -4, id: 'c5' },
+        { x: -8, y: -4, id: 'c6' },
+        { x: -8, y: -2, id: 'c7' },
+      ];
+    } else if (type === 'ENTRANCE') {
+      newPoints = [
+        { x: -4, y: -4, id: 'e1' },
+        { x: 4, y: -4, id: 'e2' },
+        { x: 4, y: 4, id: 'e3' },
+        { x: -4, y: 4, id: 'e4' },
+        { x: -4, y: -4, id: 'e5' },
+      ];
+    }
+    set({ points: newPoints, mode: 'SIMULATE', isColliding: false });
+  },
 
   furniture: {
     name: 'カスタム',

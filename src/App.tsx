@@ -17,6 +17,8 @@ const Sidebar = () => {
   const { 
     mode, setMode, 
     furniture, updateFurniture, 
+    clearPoints, addPoint,
+    loadSample,
     isColliding 
   } = useStore();
 
@@ -53,6 +55,33 @@ const Sidebar = () => {
             style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
           >
             <Play size={16} /> 開始
+          </button>
+        </div>
+      </div>
+
+      <div className="card glass">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+          <Map size={18} color="var(--accent)" />
+          <h3 className="font-heading">間取りの操作</h3>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '12px' }}>
+          <button className="btn-secondary" onClick={() => loadSample('CORRIDOR')} style={{ fontSize: '11px' }}>
+            廊下のサンプル
+          </button>
+          <button className="btn-secondary" onClick={() => loadSample('ENTRANCE')} style={{ fontSize: '11px' }}>
+            玄関のサンプル
+          </button>
+        </div>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="btn-secondary" onClick={() => addPoint(0, 0)} style={{ flex: 1, fontSize: '11px' }}>
+            角を追加
+          </button>
+          <button 
+            className="btn-secondary" 
+            onClick={() => { if(confirm('リセットしますか？')) clearPoints() }} 
+            style={{ flex: 1, fontSize: '11px', color: 'var(--error)' }}
+          >
+            リセット
           </button>
         </div>
       </div>
@@ -145,18 +174,20 @@ const Sidebar = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
         className="card glass" 
-        style={{ marginTop: '24px', border: '1px dashed var(--glass-border)' }}
+        style={{ marginTop: '24px', border: '1px solid var(--primary-glow)', background: 'rgba(59, 130, 246, 0.05)' }}
       >
-        <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>
+        <div style={{ fontSize: '12px', color: 'var(--text)' }}>
           <div style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Monitor size={14} />
-            <strong>使い方ガイド</strong>
+            <Monitor size={14} color="var(--primary)" />
+            <strong className="font-heading">はじめての操作ガイド</strong>
           </div>
-          <ul style={{ paddingLeft: '20px', listStyle: 'disc' }}>
-            <li>下書きモードで壁を配置</li>
-            <li>開始ボタンでシミュ開始</li>
-            <li>3D空間で家具をドラッグ</li>
-          </ul>
+          <ol style={{ paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <li><strong>「下書き」</strong>モードで青い丸をドラッグして壁を作ります</li>
+            <li><strong>「開始」</strong>モードに切り替えます</li>
+            <li>家具をマウスで<strong>自由に掴んで</strong>動かします</li>
+            <li>家具の周りの矢印をドラッグすると<strong>回転</strong>できます</li>
+            <li>壁に当たると<strong>赤色</strong>に変わります</li>
+          </ol>
         </div>
       </motion.div>
     </motion.aside>
