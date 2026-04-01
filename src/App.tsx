@@ -3,6 +3,7 @@ import {
   Box, 
   Map, 
   Play, 
+  Monitor,
   TrendingUp,
   ArrowUpRight,
   ShieldCheck,
@@ -19,10 +20,20 @@ const Sidebar = () => {
   } = useStore();
 
   return (
-    <aside className="sidebar glass">
+    <motion.aside 
+      initial={{ x: -320 }}
+      animate={{ x: 0 }}
+      transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+      className="sidebar glass"
+    >
       <div className="logo">
-        <div className="logo-icon"><Box size={20} /></div>
-        <span>ハコトオル</span>
+        <motion.div 
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          className="logo-icon"
+        >
+          <Box size={20} />
+        </motion.div>
+        <span className="font-heading">HakoTooru</span>
       </div>
 
       <div className="card glass">
@@ -108,7 +119,27 @@ const Sidebar = () => {
           無料で見積もりを取る <ArrowUpRight size={14} />
         </button>
       </div>
-    </aside>
+      {/* User Guide Card */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="card glass" 
+        style={{ marginTop: '24px', border: '1px dashed var(--glass-border)' }}
+      >
+        <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>
+          <div style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Monitor size={14} />
+            <strong>使い方ガイド</strong>
+          </div>
+          <ul style={{ paddingLeft: '20px', listStyle: 'disc' }}>
+            <li>下書きモードで壁を配置</li>
+            <li>開始ボタンでシミュ開始</li>
+            <li>3D空間で家具をドラッグ</li>
+          </ul>
+        </div>
+      </motion.div>
+    </motion.aside>
   );
 };
 
