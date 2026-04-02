@@ -98,8 +98,7 @@ const Furniture = () => {
       <Text
         position={[0, furniture.height / 2 + 0.3, 0]}
         fontSize={0.25}
-        color="var(--text)"
-        font="https://fonts.gstatic.com/s/outfit/v11/Q_kU9S64V78Yv82mSiaZ.woff" // Outfit URL (approx)
+        color="#ffffff"
       >
         {`${furniture.width.toFixed(1)}m × ${furniture.height.toFixed(1)}m`}
       </Text>

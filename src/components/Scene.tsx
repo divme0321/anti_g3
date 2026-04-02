@@ -32,15 +32,15 @@ const Scene = () => {
           castShadow 
           shadow-mapSize={[1024, 1024]}
         />
-        <pointLight position={[-10, 5, -10]} intensity={0.5} color="var(--primary)" />
+        <pointLight position={[-10, 5, -10]} intensity={0.5} color="#0066ff" />
 
         {/* Environment & Floor */}
         <Environment preset="city" />
         <Grid 
           infiniteGrid 
           fadeDistance={30} 
-          sectionColor="var(--glass-border)" 
-          cellColor="rgba(255,255,255,0.05)" 
+          sectionColor="#1a1e26" 
+          cellColor="#0d0d0d" 
           sectionThickness={1.5}
           cellSize={1}
         />
