@@ -63,6 +63,12 @@ const Scene = () => {
           maxPolarAngle={Math.PI / 2.1} 
           minDistance={2}
           maxDistance={30}
+          mouseButtons={{
+            LEFT: undefined as any,       // left drag → furniture (handled by Furniture.tsx)
+            MIDDLE: 0,                     // middle drag → orbit rotate
+            RIGHT: undefined as any,       // right click → furniture rotate
+          }}
+          enablePan={mode === 'EDIT'}
         />
       </Suspense>
     </Canvas>
